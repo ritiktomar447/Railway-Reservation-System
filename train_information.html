@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Train Availability</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      table thead {
+        background-color: #333;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      table tbody tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      .no-train-msg {
+        text-align: center;
+        color: red;
+        font-size: 1.5em;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Train Availability Information</h1>
+    <table id="trainTable">
+      <thead>
+        <tr>
+          <th>Train No</th>
+          <th>A/C Class Seats</th>
+          <th>Sleeper Class Seats</th>
+          <th>General Class Seats</th>
+          <th>Arrival Time</th>
+          <th>Departure Time</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="trainTableBody">
+        <!-- Data will be dynamically added here -->
+      </tbody>
+    </table>
+
+    <!-- Message if no train is found -->
+    <div class="no-train-msg" id="noTrainMsg" style="display: none">
+      Train not available.
+    </div>
+
+    <script>
+      // Function to fetch and render data from the API
+      async function fetchTrainData() {
+        try {
+          // Get train number from URL query parameter
+          const urlParams = new URLSearchParams(window.location.search);
+          const trainNoFromUrl = urlParams.get("trainNo");
+
+          // Fetch data from the train status API
+          const response = await fetch("http://localhost:3000/train-status");
+          const data = await response.json();
+
+          const tableBody = document.getElementById("trainTableBody");
+          const noTrainMsg = document.getElementById("noTrainMsg");
+
+          // If no data, show "Train not available" message
+          if (data.length === 0) {
+            noTrainMsg.style.display = "block";
+            return;
+          } else {
+            noTrainMsg.style.display = "none";
+          }
+
+          // Clear any existing rows in the table
+          tableBody.innerHTML = "";
+
+          // Filter the train data to match the train number from the URL
+          const filteredTrain = data.filter(
+            (train) => train.train_no == trainNoFromUrl
+          );
+
+          if (filteredTrain.length > 0) {
+            // Iterate over filtered data (only one train will be shown)
+            for (let train of filteredTrain) {
+              // Fetch additional data (arrival time, departure time, date) from the second API
+              const trainDetailsResponse = await fetch(
+                `http://localhost:3000/train-details/${train.train_no}`
+              );
+              const trainDetails = await trainDetailsResponse.json();
+
+              const row = document.createElement("tr");
+              const dateTime = trainDetails.date;
+              const date = new Date(dateTime);
+              const dateOnly = date.toLocaleDateString("en-CA");
+              row.innerHTML = `
+                            <td>${train.train_no}</td>
+                            <td>
+                                ${train.b_seats1}
+                                <button onclick="bookTicket(${
+                                  train.train_no
+                                }, 'A/C Class')">
+                                    <a href="passenger_info.html">Book</a>
+                                </button>
+                            </td>
+                            <td>
+                                ${train.b_seats2}
+                                <button onclick="bookTicket(${
+                                  train.train_no
+                                }, 'Sleeper Class')">
+                                    <a href="passenger_info.html">Book</a>
+                                </button>
+                            </td>
+                            <td>
+                                ${train.w_seats1}
+                                <button onclick="bookTicket(${
+                                  train.train_no
+                                }, 'General Class')">
+                                    <a href="passenger_info.html">Book</a>
+                                </button>
+                            </td>
+                            <td>${
+                              trainDetails.arrival_time || "--"
+                            }</td> <!-- Arrival time from the second API -->
+                            <td>${
+                              trainDetails.departure_time || "--"
+                            }</td> <!-- Departure time from the second API -->
+                            <td>${
+                              dateOnly || "--"
+                            }</td> <!-- Date from the second API -->
+                        `;
+
+              // Append the row to the table body
+              tableBody.appendChild(row);
+            }
+          } else {
+            // If no matching train is found
+            noTrainMsg.style.display = "block";
+          }
+        } catch (error) {
+          console.error("Error fetching train data:", error);
+          document.getElementById("noTrainMsg").style.display = "block";
+        }
+      }
+
+      // Function to handle booking logic
+      function bookTicket(trainNo, classType) {
+        console.log(`Booking for Train ${trainNo} in ${classType}`);
+      }
+
+      // Fetch train data when the page loads
+      window.onload = fetchTrainData;
+    </script>
+  </body>
+</html>

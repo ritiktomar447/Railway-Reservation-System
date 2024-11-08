@@ -1,0 +1,371 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Reservation - User Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-image:url("trainImage.jpeg");
+            background-size: cover;
+
+        }
+        .login-container {
+            margin-top: 100px;
+            
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .form-container {
+            background-color:rgba(255,255,255,0.4);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .login-btn {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        #logo{
+            height: 100px;
+            width: 100px;
+        }
+        #Pachmarhi{
+            color: rgb(0, 0, 0);
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif   
+        }
+        
+        
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <img id="logo" src="train_logo.jpg" alt=""> 
+            
+            <h2 id="Pachmarhi"> Pachmarhi Railway </h2>
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">User Login</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">Book Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Payment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cancel Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a> -->
+                    </li>
+                </ul>
+                <!-- Right Aligned Buttons -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="#">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="container login-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h3 class="text-center">User Login</h3>
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary login-btn w-100">Login</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Don't have an account? <a href="#">Register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signupForm">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userId" class="form-label">User ID</label>
+                            <input type="text" class="form-control" id="userId" placeholder="Enter your user ID" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" id="gender" required>
+                                <option value="" disabled selected>Select your gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="number" class="form-control" id="age" placeholder="Enter your age" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="signupEmail" placeholder="Enter your email" required>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label for="verifyOTP" class="form-label">Email Verifiation</label>
+                            <div>
+                                <button onclick="sendEmail()">Send OTP</button>
+                            </div>
+                        </div> -->
+                        <!-- <div class="mb-3">
+                            <label for="checkOTP" class="form-label">Enter OTP</label>
+                            <div>
+                                <input type="text" class="form-control" id="checkOTP" placeholder="Enter your OTP" required> <br>
+                                <button onclick="cheeckOTP()">Verify OTP</button>
+                            </div>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="aadharNo" class="form-label">Aadhaar Number</label>
+                            <input type="text" class="form-control" id="aadharNo" placeholder="Enter your Aadhaar number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mobileNo" class="form-label">Mobile Number</label>
+                            <input type="tel" class="form-control" id="mobileNo" placeholder="Enter your mobile number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" placeholder="Enter your city" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control" id="state" placeholder="Enter your state" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pinCode" class="form-label">Pin Code</label>
+                            <input type="text" class="form-control" id="pinCode" placeholder="Enter your pin code" required>
+                        </div>
+                        <div class="mb-3"></div>
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="securityQuestion" class="form-label">Security Question</label>
+                            <select class="form-select" id="securityQuestion" required>
+                                <option value="" disabled selected>Select a security question</option>
+                                <option value="Mother's maiden name">Mother's maiden name</option>
+                                <option value="First pet's name">First pet's name</option>
+                                <option value="City of birth">City of birth</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="securityAnswer" class="form-label">Security Answer</label>
+                            <input type="text" class="form-control" id="securityAnswer" placeholder="Enter your security answer" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // function sendEmail() {
+        //     const email = document.getElementById('signupEmail').value;
+        //     fetch('/sendEmail', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ email })
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert('data.message');
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //     });
+        // }
+        // function checkOTP() {
+        //     const otp1 = document.getElementById('checkOTP').value;
+        //     fetch('/checkOTP', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ otp1 })
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert('data.message');
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //     });
+        // }
+
+        // Login Form submission
+        // document.getElementById("loginForm").addEventListener("submit", function(event){
+        //     event.preventDefault();
+        //     const username = document.getElementById("username").value;
+        //     const password = document.getElementById("password").value;
+            
+        //     if (username === "user" && password === "password123") {
+        //         alert("Login Successful");
+        //         window.location.href = "book-ticket.html"; // You can change this to the actual booking page link
+        //     } else {
+        //         alert("Invalid credentials! Please try again.");
+        //     }
+        // });
+
+        // Sign Up Form submission
+
+
+        document.getElementById("signupForm").addEventListener("submit", function(event){
+    event.preventDefault();
+
+    // Gather form data
+    const formData = {
+    first_name: document.getElementById("firstName").value,
+    last_name: document.getElementById("lastName").value,
+    adhar_no: document.getElementById("aadharNo").value,
+    gender: document.getElementById("gender").value,
+    age: document.getElementById("age").value,
+    mobile_no: document.getElementById("mobileNo").value,
+    email: document.getElementById("signupEmail").value,
+    city: document.getElementById("city").value,
+    state: document.getElementById("state").value,
+    pincode: document.getElementById("pinCode").value,
+    password: document.getElementById("password").value,
+    security_ques: document.getElementById("securityQuestion").value,
+    security_ans: document.getElementById("securityAnswer").value,
+};
+
+    if(formData.gender=="Male"){
+        formData.gender="M"
+    }else{
+        formData.gender="F"
+    }
+    console.log(formData)
+
+    // Display alert with gathered data (for confirmation)
+    // alert(`Sign Up Successful\nName: ${formData.firstName} ${formData.lastName}\nUser ID: ${formData.userId}\nGender: ${formData.gender}\nAge: ${formData.age}\nEmail: ${formData.signupEmail}\nAadhaar No: ${formData.aadharNo}\nMobile No: ${formData.mobileNo}\nCity: ${formData.city}\nState: ${formData.state}\nPin Code: ${formData.pinCode}\nSecurity Question: ${formData.securityQuestion}\nSecurity Answer: ${formData.securityAnswer}`);
+
+    // Prepare data for API request
+    const apiUrl = 'http://localhost:3000/register'; // Your API URL
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("HTTP status " + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        alert("Sign-up successful!");
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Sign-up failed. Please try again.");
+    });
+});
+
+
+
+const loginForm = document.getElementById("loginForm");
+
+// Add an event listener to handle form submission
+loginForm.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form from submitting the default way (page reload)
+
+    // Get the values of the username and password fields
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("loginPassword").value;
+
+    // Now you can use these values for further processing, like sending to a backend
+    console.log("Username:", username);
+    console.log("Password:", password);
+
+    // Example of sending data to a server via fetch (optional)
+    const loginData = {
+        username: username,
+        password: password
+    };
+
+    fetch('http://localhost:3000/login', {  // Change to your actual backend endpoint
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle success
+        console.log("Success:", data);
+        if (data.success) {
+            alert("Login successful!");
+            // Redirect or do further actions after successful login
+            window.location.href = "/book-ticket.html";  // Example redirection after login
+        } else {
+            alert("Invalid credentials, please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error logging in. Please try again.");
+    });
+});
+    </script>
+
+</body>
+</html>

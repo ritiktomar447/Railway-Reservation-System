@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ticket - Railway Reservation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-image:url("trainImage.jpeg");
+            background-size: cover;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .nav-tabs .nav-link {
+            border-radius: 0;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        #logo{
+            height: 100px;
+            width: 100px;
+        }
+        #Pachmarhi{
+            color: rgb(0, 0, 0);
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif   
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <img id="logo" src="train_logo.jpg" alt=""> 
+            
+            <h2 id="Pachmarhi"> RAILWAY RESERVATION </h2>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">User Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="book-ticket.html">Book Ticket</a>
+                    </li>
+                    <li class="nav-item"></li>
+                        <a class="nav-link" href="#">Payment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cancel-ticket.html">Cancel Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact-us.html">Contact Us</a>
+                    </li>
+                </ul>
+                <!-- Right Aligned Buttons -->
+                <ul class="navbar-nav ms-auto">
+                    \
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="index.html">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Book Ticket Content -->
+    <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+           
+            <li class="nav-item" role="presentation"></li>
+                <a class="nav-link active" id="passenger-info-tab" data-bs-toggle="tab" href="passenger_info.html" role="tab" aria-controls="passenger-info" aria-selected="true">Passenger Info</a>
+            </li>
+        </ul>
+        <div class="tab-pane fade show active" id="passenger-info" role="tabpanel" aria-labelledby="passenger-info-tab">
+            <div class="form-container">
+                <h4>Passenger Information</h4>
+                <form id="passengerForm">
+                    <div class="mb-3">
+                        <label for="passengerName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="passengerName" placeholder="Enter full name" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="passengerGender" class="form-label">Gender</label>
+                        <select class="form-select" id="passengerGender" >
+                            <option value="" disabled selected>Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passengerAge" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="passengerAge" placeholder="Enter age" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="aadharNo" class="form-label">Aadhaar Number</label>
+                        <input type="text" class="form-control" id="aadharNo" placeholder="Enter Aadhaar number" >
+                    </div>
+                    <a class="btn btn-custom w-100"  href="payment.html" >Next</a>
+                </form>
+            </div>
+        </div>
+       
+        
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

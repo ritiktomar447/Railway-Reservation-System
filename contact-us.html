@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Ticket - Railway Reservation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Railway Reservation</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">User Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="book-ticket.html">Book Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payment.html">Payment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="cancel-ticket.html">Cancel Ticket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact-us.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact_us Content -->
+    <div class="container">
+        <div class="form-container">
+            <h2>Contact Us</h2>
+        <p>If you have any questions or concerns about our railway reservation system, feel free to reach out to us via the contact information below. We're here to assist you.</p>
+
+        <div class="contact-details">
+            <p>Email: <span>support@railwayreservation.com</span></p>
+            <p>Contact Number: <span>+1 234 567 890</span></p>
+        </div>
+            
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function cancelTicket() {
+            const pnrNumber = document.getElementById('pnrNumber').value;
+            const passengerId = document.getElementById('passengerId').value;
+            const reason = document.getElementById('reason').value;
+
+            if (pnrNumber && passengerId && reason) {
+                // Perform the ticket cancellation process here (e.g., send data to the server)
+                // For now, we'll just simulate a successful cancellation
+
+                const cancelStatus = `
+                    <div class="alert alert-success" role="alert">
+                        Ticket with PNR <strong>${pnrNumber}</strong> for Passenger ID <strong>${passengerId}</strong> has been successfully cancelled.
+                    </div>
+                `;
+                document.getElementById('cancelStatus').innerHTML = cancelStatus;
+            } else {
+                document.getElementById('cancelStatus').innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        Please fill in all required fields to cancel the ticket.
+                    </div>
+                `;
+            }
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
