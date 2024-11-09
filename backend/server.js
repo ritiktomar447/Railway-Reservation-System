@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const cors = require("cors");
+var cookieParser = require("cookie-parser");
 
 // Create the Express application
 const app = express();
@@ -10,8 +11,10 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); // This parses incoming JSON requests
 
-app.use(cors({ origin: "http://127.0.0.1:5501" }));
+app.use(cors({ origin: "http://127.0.0.1:5501", credentials: true }));
+app.use(cookieParser());
 
 // MySQL database connection configuration
 const db = mysql.createConnection({
@@ -31,6 +34,8 @@ db.connect((err) => {
 });
 
 // API endpoint to accept user details and store them in the database
+
+let user_id;
 
 app.post("/register", (req, res) => {
   console.log(req.body); // Log to verify data
@@ -104,9 +109,13 @@ app.post("/login", (req, res) => {
 
     if (results.length > 0) {
       // User found and password matches
-      return res
-        .status(200)
-        .send({ success: true, message: "Login successful" });
+      user_id = user_id;
+      // Send the user data as a response
+      res.status(200).send({
+        success: true,
+        message: "Login successful",
+        user: results[0], // Return the user data from the first result
+      });
     } else {
       // User not found or invalid credentials
       return res
@@ -208,6 +217,102 @@ app.get("/train-details/:trainNo", (req, res) => {
 
     // Send the train details as the response
     res.json(results[0]);
+  });
+});
+
+// adding passengers in the table
+
+// Function to generate a random 4-digit passenger ID
+const generatePassengerId = () => {
+  return Math.floor(1000 + Math.random() * 9000);
+};
+
+// Function to generate a random 4-digit PNR number
+const generatePnrNumber = () => {
+  return Math.floor(10 + Math.random() * 90);
+};
+
+// Function to generate a fixed ticket_id (starts with 'C')
+const generateTicketId = () => {
+  return Math.floor(1000 + Math.random() * 9000);
+};
+
+app.post("/addPassengers", (req, res) => {
+  const passengers = req.body.passengers;
+
+  if (!passengers || passengers.length === 0) {
+    return res
+      .status(400)
+      .json({ success: false, message: "No passengers provided" });
+  }
+
+  // Extract user_ids from passengers or use globalUserId as a fallback
+  const userIds = passengers.map(
+    (passenger) => passenger.user_id || globalUserId
+  );
+
+  const sqlCheckUsers = "SELECT user_id FROM USER WHERE user_id IN (?)";
+
+  db.query(sqlCheckUsers, [userIds], (err, result) => {
+    if (err) {
+      console.error("Error querying users:", err);
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message: "Database error when checking users",
+        });
+    }
+
+    // Map the existing user_ids from the result
+    const existingUserIds = result.map((row) => row.user_id);
+
+    // Find any missing user_ids
+    const missingUserIds = userIds.filter(
+      (id) => !existingUserIds.includes(id)
+    );
+
+    if (missingUserIds.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `User IDs not found: ${missingUserIds.join(", ")}`,
+      });
+    }
+
+    // If all user_ids exist, proceed with inserting passengers
+    const sqlInsertPassengers = `
+      INSERT INTO PASSENGER (passenger_id, pnr_no, age, gender, user_id, reservation_status, seat_number, name, ticket_id) 
+      VALUES ?`;
+
+    // Prepare values for batch insert
+    const values = passengers.map((passenger) => [
+      generatePassengerId(), // Assuming you have a function for this
+      generatePnrNumber(), // Assuming you have a function for this
+      passenger.age,
+      passenger.gender,
+      passenger.user_id || globalUserId, // Use user_id from passenger or globalUserId
+      passenger.reservation_status,
+      passenger.seat_number,
+      passenger.name,
+      passenger.ticket_id,
+    ]);
+
+    // Execute batch insert into PASSENGER table
+    db.query(sqlInsertPassengers, [values], (err, result) => {
+      if (err) {
+        console.error("Error inserting passengers:", err);
+        return res
+          .status(500)
+          .json({
+            success: false,
+            message: "Database error while inserting passengers",
+          });
+      }
+
+      return res
+        .status(200)
+        .json({ success: true, message: "Passengers added successfully" });
+    });
   });
 });
 

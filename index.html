@@ -325,11 +325,13 @@ const loginForm = document.getElementById("loginForm");
 
 // Add an event listener to handle form submission
 loginForm.addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form from submitting the default way (page reload)
-
+    event.preventDefault(); // Prevent form from submitting the default way
+    
     // Get the values of the username and password fields
     const username = document.getElementById("username").value;
     const password = document.getElementById("loginPassword").value;
+
+    localStorage.setItem("userEmail",username)
 
     // Now you can use these values for further processing, like sending to a backend
     console.log("Username:", username);
@@ -346,7 +348,8 @@ loginForm.addEventListener("submit", function(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(loginData)
+        body: JSON.stringify(loginData),
+        credentials: 'include',
     })
     .then(response => response.json())
     .then(data => {
@@ -365,6 +368,12 @@ loginForm.addEventListener("submit", function(event) {
         alert("There was an error logging in. Please try again.");
     });
 });
+
+
+window.onload = function() {
+    localStorage.clear();
+};
+
     </script>
 
 </body>
